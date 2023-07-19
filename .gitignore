@@ -1,0 +1,6 @@
+.idea/
+venv/
+backup_vk/
+sourse/
+test.py
+.env
