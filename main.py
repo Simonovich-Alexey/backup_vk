@@ -1,20 +1,21 @@
 import os
+import time
+import requests
 from dotenv import load_dotenv
 from datetime import datetime
-import requests
-import pprint
+from tqdm import tqdm
 
 
 class VkApiClient:
     API_BASE_URL = 'https://api.vk.com/method'
 
-    def __init__(self, token, user_id):
+    def __init__(self, token, user_id, count):
         self.token = token
         self.user_id = user_id
         self.photo_params = []
-        self.get_photos_params()
+        self.get_photos_params(count)
         self.get_photo_likes()
-        self.set_name()
+        self.give_name()
 
     def get_common_params(self):
         return {
@@ -25,20 +26,25 @@ class VkApiClient:
     def _build_url(self, api_method):
         return f"{self.API_BASE_URL}/{api_method}"
 
-    def get_photos_params(self):
+    def get_photos_params(self, count):
         params = self.get_common_params()
         params.update({'owner_id': self.user_id, 'album_id': 'profile'})
         response = requests.get(self._build_url('photos.get'), params=params)
         item_photo = response.json().get('response').get('items')
-        for i in item_photo:
+        item = tqdm(item_photo)
+        for i in item:
+            time.sleep(0.5)
+            item.set_description("Get photos: ")
             photos_id = i.get('id')
             photos_date = datetime.utcfromtimestamp(i.get('date')).strftime('%d-%m-%Y')
             photos_link = i.get('sizes')[-1].get('url')
             photos_size = i.get('sizes')[-1].get('type')
             photos_dict = {'id': photos_id, 'date': photos_date, 'link': photos_link, 'size': photos_size}
             self.photo_params.append(photos_dict)
+            if len(self.photo_params) >= count:
+                break
 
-    def set_name(self):
+    def give_name(self):
         list_likes = []
         for j in self.photo_params:
             list_likes.append(j.get('likes'))
@@ -61,24 +67,24 @@ class VkApiClient:
 class YaUploader(VkApiClient):
     API_URL_YA = 'https://cloud-api.yandex.net/v1/disk/resources'
 
-    def __init__(self, token, user_id, token_yd):
-        super().__init__(token, user_id)
+    def __init__(self, token, user_id, token_yd, count=5):
+        super().__init__(token, user_id, count)
         self.token_yd = token_yd
         self.create_folder()
 
     def create_folder(self):
-        params = {'path': '/vk'}
+        params = {'path': '/vk-backup'}
         headers = {"Authorization": "OAuth " + self.token_yd}
-        response = requests.put(self.API_URL_YA, headers=headers, params=params)
-        print(response.json())
+        requests.put(self.API_URL_YA, headers=headers, params=params)
 
     def upload(self):
         headers = {"Authorization": "OAuth " + self.token_yd}
-        for i in self.photo_params:
+        photo_params = tqdm(self.photo_params)
+        for i in photo_params:
+            photo_params.set_description("Upload: ")
             path = f'/vk/{i.get("name_img")}.jpg'
             params = {'path': path, 'url': i.get('link')}
-            response = requests.post(self.API_URL_YA + '/upload', headers=headers, params=params)
-            print(response.json())
+            requests.post(self.API_URL_YA + '/upload', headers=headers, params=params)
 
 
 if __name__ == '__main__':
@@ -91,10 +97,10 @@ if __name__ == '__main__':
 
     # OAUTH_BASE_URL = 'https://oauth.vk.com/authorize'
     # params = {
-    #     'client_id': APP_ID,
+    #     'client_id': 51707794,
     #     'redirect_uri': 'https://oauth.vk.com/blank.html',
     #     'display': 'page',
-    #     'scope': 'status,photos',
+    #     'scope': ['photos'],
     #     'response_type': 'token'
     # }
     #
@@ -103,5 +109,5 @@ if __name__ == '__main__':
 
     user_one = YaUploader(TOKEN_VK, USER_ID, TOKEN_YD)
 
-    pprint.pprint(user_one.photo_params)
+    # pprint.pprint(user_one.photo_params)
     user_one.upload()
