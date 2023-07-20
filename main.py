@@ -1,5 +1,6 @@
 import os
-import time
+import pprint
+
 import requests
 from dotenv import load_dotenv
 from datetime import datetime
@@ -9,12 +10,12 @@ from tqdm import tqdm
 class VkApiClient:
     API_BASE_URL = 'https://api.vk.com/method'
 
-    def __init__(self, token, user_id, count):
+    def __init__(self, token, user_id):
         self.token = token
         self.user_id = user_id
         self.photo_params = []
-        self.get_photos_params(count)
-        self.get_photo_likes()
+        self.get_photos_params()
+        # self.get_photo_likes()
         self.give_name()
 
     def get_common_params(self):
@@ -26,23 +27,21 @@ class VkApiClient:
     def _build_url(self, api_method):
         return f"{self.API_BASE_URL}/{api_method}"
 
-    def get_photos_params(self, count):
+    def get_photos_params(self):
         params = self.get_common_params()
-        params.update({'owner_id': self.user_id, 'album_id': 'profile'})
-        response = requests.get(self._build_url('photos.get'), params=params)
-        item_photo = response.json().get('response').get('items')
-        item = tqdm(item_photo)
-        for i in item:
-            time.sleep(0.5)
-            item.set_description("Get photos: ")
-            photos_id = i.get('id')
-            photos_date = datetime.utcfromtimestamp(i.get('date')).strftime('%d-%m-%Y')
-            photos_link = i.get('sizes')[-1].get('url')
-            photos_size = i.get('sizes')[-1].get('type')
-            photos_dict = {'id': photos_id, 'date': photos_date, 'link': photos_link, 'size': photos_size}
-            self.photo_params.append(photos_dict)
-            if len(self.photo_params) >= count:
-                break
+        try:
+            params.update({'owner_id': self.user_id, 'album_id': 'profile'})
+            response = requests.get(self._build_url('photos.get'), params=params)
+            item_photo = response.json().get('response').get('items')
+            for i in item_photo:
+                photos_id = i.get('id')
+                photos_date = datetime.utcfromtimestamp(i.get('date')).strftime('%d-%m-%Y')
+                photos_link = i.get('sizes')[-1].get('url')
+                photos_size = i.get('sizes')[-1].get('type')
+                photos_dict = {'id': photos_id, 'date': photos_date, 'link': photos_link, 'size': photos_size}
+                self.photo_params.append(photos_dict)
+        except AttributeError:
+            print('Проверте свой ID и TOKEN')
 
     def give_name(self):
         list_likes = []
@@ -67,10 +66,17 @@ class VkApiClient:
 class YaUploader(VkApiClient):
     API_URL_YA = 'https://cloud-api.yandex.net/v1/disk/resources'
 
-    def __init__(self, token, user_id, token_yd, count=5):
-        super().__init__(token, user_id, count)
+    def __init__(self, token, user_id, token_yd):
+        super().__init__(token, user_id)
         self.token_yd = token_yd
-        self.create_folder()
+        self.get_disk()
+
+    def get_disk(self):
+        params = {'path': '/vk-backup'}
+        headers = {"Authorization": "OAuth " + self.token_yd}
+        response = requests.get(self.API_URL_YA, headers=headers, params=params)
+        if not response.json().get('name'):
+            self.create_folder()
 
     def create_folder(self):
         params = {'path': '/vk-backup'}
@@ -79,12 +85,13 @@ class YaUploader(VkApiClient):
 
     def upload(self):
         headers = {"Authorization": "OAuth " + self.token_yd}
-        photo_params = tqdm(self.photo_params)
-        for i in photo_params:
-            photo_params.set_description("Upload: ")
-            path = f'/vk/{i.get("name_img")}.jpg'
-            params = {'path': path, 'url': i.get('link')}
-            requests.post(self.API_URL_YA + '/upload', headers=headers, params=params)
+        if len(self.photo_params) > 1:
+            photo_params = tqdm(self.photo_params)
+            for i in photo_params:
+                photo_params.set_description("Upload: ")
+                path = f'/vk-backup/{i.get("name_img")}.jpg'
+                params = {'path': path, 'url': i.get('link')}
+                requests.post(self.API_URL_YA + '/upload', headers=headers, params=params)
 
 
 if __name__ == '__main__':
@@ -107,7 +114,6 @@ if __name__ == '__main__':
     # oauth_url = requests.get(OAUTH_BASE_URL, params=params)
     # print(oauth_url.url)
 
-    user_one = YaUploader(TOKEN_VK, USER_ID, TOKEN_YD)
+    user_one = YaUploader(TOKEN_VK, 15777557, TOKEN_YD)
 
-    # pprint.pprint(user_one.photo_params)
     user_one.upload()
