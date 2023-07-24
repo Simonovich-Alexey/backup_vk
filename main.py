@@ -46,9 +46,7 @@ class VKClient:
         try:
             response = requests.get(self._build_url('photos.get'), params=params)
             data_json = response.json().get('response').get('items')[:count]
-            photo_params = tqdm(data_json)
-            for i in photo_params:
-                photo_params.set_description("Search foto: ")
+            for i in data_json:
                 photos_id = i.get('id')
                 photos_date = datetime.utcfromtimestamp(i.get('date')).strftime('%d-%m-%Y')
                 sorted_size = sorted(i.get('sizes'), key=lambda x: x.get('height'))
@@ -57,13 +55,13 @@ class VKClient:
                 photos_dict = {'id': photos_id, 'date': photos_date, 'link': photos_url, 'size': photos_size}
                 self.photo_params.append(photos_dict)
         except AttributeError:
-            print('Проверте свой ID и TOKEN')
+            print('Проверьте свой ID и TOKEN')
 
     def get_photo_likes(self):
         params = self.get_common_params()
         photo_params = tqdm(self.photo_params)
         for count, value in enumerate(photo_params):
-            photo_params.set_description("Add likes: ")
+            photo_params.set_description("Get photos: ")
             time.sleep(0.25)
             params.update({'type': 'photo', 'owner_id': self.user_id, 'item_id': value.get('id')})
             response = requests.get(self._build_url('likes.getList'), params=params)
@@ -130,11 +128,9 @@ class YaUploader(VKClient):
 
 if __name__ == '__main__':
     load_dotenv()
-
     TOKEN_YD = os.getenv('TOKEN_YD')
     TOKEN_VK = os.getenv('TOKEN_VK')
     USER_ID = os.getenv('USER_ID')
-    APP_ID = os.getenv('APP_ID')
 
-    user_one = YaUploader(TOKEN_VK, 15777557, TOKEN_YD, 30)
+    user_one = YaUploader(TOKEN_VK, USER_ID, TOKEN_YD, 10)
     # user_one.get_token_vk()
