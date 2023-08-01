@@ -12,7 +12,6 @@ class YaUploader(VKClient):
         self.token_yd = token_yd
         self.check_folder()
         self.upload()
-        # self.upload_json()
 
     def get_common_headers(self):
         return {"Authorization": "OAuth " + self.token_yd}
@@ -43,6 +42,3 @@ class YaUploader(VKClient):
             path = f'/vk-backup/{value.get("file_name")}.jpg'
             params = {'path': path, 'url': value.get('link')}
             requests.post(self.API_URL_YA + '/upload', headers=self.get_common_headers(), params=params)
-
-
-

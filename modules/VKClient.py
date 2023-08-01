@@ -70,7 +70,7 @@ class VKClient:
     def give_file_name(self):
         for count, value in enumerate(self.photo_params):
             if self.list_likes.count(value.get('likes')) > 1:
-                name_img = f"{str(value.get('likes'))}-{value.get('date')}"
+                name_img = f"{str(value.get('likes'))}-{value.get('date')}_{count}"
                 self.photo_params[count].update({'file_name': name_img})
             else:
                 self.photo_params[count].update({'file_name': value.get('likes')})
