@@ -1,0 +1,17 @@
+<header class="header">
+	<div class="header__inner">
+		<div class="container">
+			<menu class="menu">
+				{%- block mainmenu -%}
+				<ul class="menu__list">
+					{% for m in menu %}
+					<li class="menu__item">
+						<a href="{{m.url}}" class="menu__link">{{m.name}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+				{% endblock mainmenu -%}
+			</menu>
+		</div>
+	</div>
+</header>

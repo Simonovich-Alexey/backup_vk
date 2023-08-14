@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!-- @import "_head.html" -->
+
+<body>
+
+	<div class="wrapper">
+		<!-- @import "_header.html" -->
+		<main class="main">
+			<div class="container">
+				{% block content -%}
+				{% if title -%}
+				<h1 class="h1__title">{{title}}</h1>
+				{% else -%}
+				<h1 class="h1__title">Про Flask</h1>
+				{% endif %}
+				{% endblock -%}
+			</div>
+		</main>
+		<!-- @import "_footer.html" -->
+	</div>
+	<script src="js/script.js"></script>
+</body>
+
+</html>
