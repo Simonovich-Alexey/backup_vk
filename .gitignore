@@ -2,6 +2,7 @@
 venv/
 backup_vk/
 sourse/
+templates/prepros.config
 test.py
 .env
 file-info.json
