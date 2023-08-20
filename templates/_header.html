@@ -1,17 +1,29 @@
 <header class="header">
-	<div class="header__inner">
+	<div class="container">
+		<div class="header__logo">
+			<a href="#" class="header__logo-link">
+				<img src="/img/logo.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="header__menu">
 		<div class="container">
-			<menu class="menu">
-				{%- block mainmenu -%}
-				<ul class="menu__list">
-					{% for m in menu %}
-					<li class="menu__item">
-						<a href="{{m.url}}" class="menu__link">{{m.name}}</a>
-					</li>
-					{% endfor %}
-				</ul>
-				{% endblock mainmenu -%}
-			</menu>
+			<div class="header__menu-block">
+				<menu class="menu">
+					<ul class="menu__list">
+						<li class="menu__item">
+							<a href="#" class="menu__link">Фото</a>
+						</li>
+						<li class="menu__item">
+							<a href="#" class="menu__link">Видео</a>
+						</li>
+						<li class="menu__item">
+							<a href="#" class="menu__link">О нас</a>
+						</li>
+					</ul>
+				</menu>
+				<a href="#" class="login">Войти</a>
+			</div>
 		</div>
 	</div>
 </header>

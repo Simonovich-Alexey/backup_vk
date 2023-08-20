@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 
-<!-- @import "_head.html" -->
-
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+	<title>VKBackup</title>
+</head>
 <body>
-
 	<div class="wrapper">
-		<!-- @import "_header.html" -->
-		<main class="main">
+<header class="header">
+	<div class="container">
+		<div class="header__logo">
+			<a href="#" class="header__logo-link">
+				<img src="/img/logo.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="header__menu">
+		<div class="container">
+			<div class="header__menu-block">
+				<menu class="menu">
+					<ul class="menu__list">
+						<li class="menu__item">
+							<a href="#" class="menu__link">Фото</a>
+						</li>
+						<li class="menu__item">
+							<a href="#" class="menu__link">Видео</a>
+						</li>
+						<li class="menu__item">
+							<a href="#" class="menu__link">О нас</a>
+						</li>
+					</ul>
+				</menu>
+				<a href="#" class="login">Войти</a>
+			</div>
+		</div>
+	</div>
+</header>		<main class="main">
 			<div class="container">
 				{% block content -%}
 				{% if title -%}
@@ -18,8 +51,13 @@
 				{% endblock -%}
 			</div>
 		</main>
-		<!-- @import "_footer.html" -->
+<footer class="footer">
+	<div class="container">
+		<div class="footer__text"><span>©</span> Сайт несет только информационный характер, все права сохранены за
+			правообладателем
+		</div>
 	</div>
+</footer>	</div>
 	<script src="js/script.js"></script>
 </body>
 

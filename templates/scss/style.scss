@@ -14,7 +14,7 @@ $colorBtnhover: #FFB800;
 $colorInputTest: #1983B4;
 $colorTextTest: #BAECEB;
 $colorText: #EDEDED;
-$colorTextDark: #14252C;
+$colorTextDark: #000;
 //<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 
 @import "null.scss";
@@ -28,16 +28,23 @@ body {
 
 //<ОБОЛОЧКА>===========================================================================================================
 .wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	width: 100%;
 	min-height: 100%;
 	overflow: hidden;
+}
+
+.main {
+	height: 52vh;
 }
 
 //</ОБОЛОЧКА>===========================================================================================================
 
 //<ОСНОВНАЯ СЕТКА>===========================================================================================================
 .container {
-	max-width: 1150px;
+	max-width: 1230px;
 	margin: 0 auto;
 	width: 100%;
 	padding: 0 15px;
@@ -67,6 +74,49 @@ body {
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>===================================================================================================
 
 // Общие стили ====================================================================================================
+
+.main {
+	&__inputblock {
+		margin: 0px 0px 60px 0px;
+	}
+}
+
+.input {
+	position: relative;
+	text-align: center;
+
+	&__link {
+		height: 40px;
+		border: 2px solid #2787F5;
+		border-radius: 20px;
+		font-size: 16px;
+		font-weight: 500;
+		letter-spacing: 0.96px;
+		padding: 0px 20px;
+		width: 777px;
+	}
+
+	&__submit {
+		position: absolute;
+		top: 0;
+		right: 211px;
+		height: 40px;
+		border: 2px solid #2787F5;
+		border-radius: 20px;
+		background-color: #2787F5;
+		text-transform: uppercase;
+		font-weight: 500;
+		letter-spacing: 0.96px;
+		color: #fff;
+		transition: all 0.3s;
+		padding: 0px 30px;
+
+		&:hover {
+			background-color: #a4d5f1;
+			color: #000;
+		}
+	}
+}
 
 
 
