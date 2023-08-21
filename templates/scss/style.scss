@@ -37,7 +37,7 @@ body {
 }
 
 .main {
-	height: 52vh;
+	height: 100%;
 }
 
 //</ОБОЛОЧКА>===========================================================================================================
@@ -122,5 +122,133 @@ body {
 
 // Общие стили ====================================================================================================
 
+.albums {
+	&__items {
+		display: flex;
+		align-items: start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	&__item {
+		margin: 0px 50px 60px 0px;
+	}
+}
+
+.item-albums {
+	display: flex;
+	align-items: center;
+
+	&__left {
+		margin: 0px 25px 0px 0px;
+	}
+
+	&__img {
+		margin: 0px 0px 6px 0px;
+		width: 150px;
+		max-height: 150px;
+		border-radius: 50px;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	&__name {
+		color: #9D9D9D;
+		text-align: center;
+		font-weight: 500;
+		letter-spacing: 0.96px;
+		max-width: 150px;
+	}
+
+	&__count {
+		display: flex;
+		align-items: center;
+		margin: 0px 0px 10px 0px;
+	}
+
+	&__text {
+		font-weight: 500;
+		letter-spacing: 0.96px;
+		margin: 0px 20px 0px 0px;
+	}
+
+	&__numb {
+		color: #9D9D9D;
+		font-weight: 500;
+		letter-spacing: 0.96px;
+	}
+
+	&__label {
+		font-weight: 500;
+		letter-spacing: 0.96px;
+		margin: 0px 20px 0px 0px;
+	}
+
+	&__inp {
+		max-width: 80px;
+		border-bottom: 1px solid #195396;
+		font-size: 16px;
+		border-radius: 15px;
+		font-weight: 500;
+		text-align: center;
+	}
+
+	&__disk-item {
+		margin: 10px 0px 0px 0px;
+
+		&-text {
+			color: #000;
+			display: block;
+			font-size: 12px;
+			font-weight: 500;
+			letter-spacing: 0.72px;
+			padding: 7px 0px 6px 42px;
+			background-image: url('/img/icon-disk.svg');
+			background-position: center left;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
+	}
+
+	&__submit {
+		margin: 15px 0px 0px 0px;
+	}
+
+	&__path {
+		text-transform: uppercase;
+		font-size: 14px;
+		font-weight: 500;
+		letter-spacing: 0.84px;
+		padding: 7px 25px 6px 25px;
+		margin: 0px 20px 0px 0px;
+		background-color: #DADADA;
+		border-radius: 15px;
+		border: 2px solid #9D9D9D;
+		transition: all 0.3s;
+
+		&:hover {
+			background-color: #9D9D9D;
+		}
+	}
+
+	&__save {
+		text-transform: uppercase;
+		color: #fff;
+		font-size: 14px;
+		font-weight: 700;
+		letter-spacing: 0.84px;
+		padding: 7px 18px 6px 18px;
+		border-radius: 15px;
+		border: 2px solid #195396;
+		background: #2787F5;
+		transition: all 0.3s;
+
+		&:hover {
+			background-color: #195396;
+		}
+	}
+}
 
 // ==================================================================================

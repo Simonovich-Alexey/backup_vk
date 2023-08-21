@@ -111,7 +111,7 @@ body {
 }
 
 .main {
-  height: 52vh;
+  height: 100%;
 }
 
 .container {
@@ -237,4 +237,131 @@ body {
 .input__submit:hover {
   background-color: #a4d5f1;
   color: #000;
+}
+
+.albums__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.albums__item {
+  margin: 0px 50px 60px 0px;
+}
+
+.item-albums {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.item-albums__left {
+  margin: 0px 25px 0px 0px;
+}
+.item-albums__img {
+  margin: 0px 0px 6px 0px;
+  width: 150px;
+  max-height: 150px;
+  border-radius: 50px;
+}
+.item-albums__img img {
+  width: 100%;
+}
+.item-albums__name {
+  color: #9D9D9D;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.96px;
+  max-width: 150px;
+}
+.item-albums__count {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0px 0px 10px 0px;
+}
+.item-albums__text {
+  font-weight: 500;
+  letter-spacing: 0.96px;
+  margin: 0px 20px 0px 0px;
+}
+.item-albums__numb {
+  color: #9D9D9D;
+  font-weight: 500;
+  letter-spacing: 0.96px;
+}
+.item-albums__label {
+  font-weight: 500;
+  letter-spacing: 0.96px;
+  margin: 0px 20px 0px 0px;
+}
+.item-albums__inp {
+  max-width: 80px;
+  border-bottom: 1px solid #195396;
+  font-size: 16px;
+  border-radius: 15px;
+  font-weight: 500;
+  text-align: center;
+}
+.item-albums__disk-item {
+  margin: 10px 0px 0px 0px;
+}
+.item-albums__disk-item-text {
+  color: #000;
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.72px;
+  padding: 7px 0px 6px 42px;
+  background-image: url("/img/icon-disk.svg");
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.item-albums__submit {
+  margin: 15px 0px 0px 0px;
+}
+.item-albums__path {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.84px;
+  padding: 7px 25px 6px 25px;
+  margin: 0px 20px 0px 0px;
+  background-color: #DADADA;
+  border-radius: 15px;
+  border: 2px solid #9D9D9D;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.item-albums__path:hover {
+  background-color: #9D9D9D;
+}
+.item-albums__save {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.84px;
+  padding: 7px 18px 6px 18px;
+  border-radius: 15px;
+  border: 2px solid #195396;
+  background: #2787F5;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.item-albums__save:hover {
+  background-color: #195396;
 }
